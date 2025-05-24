@@ -1,0 +1,359 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Using a common system font that supports Ethiopic */
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* Soft gradient background */
+    color: #333;
+    direction: rtl; /* Set text direction for Amharic content */
+    text-align: right; /* Align text to the right */
+}
+
+/* Adjust direction for elements that should be left-aligned if any, or specifically for form inputs if needed */
+input, textarea, button {
+    direction: rtl; /* Ensure form elements also use RTL */
+    text-align: right; /* Align text within form elements */
+}
+
+.container {
+    max-width: 900px; /* Increased max-width to accommodate more content */
+    margin: 40px auto; /* Center the container */
+    padding: 30px 40px; /* More padding inside */
+    background-color: #ffffff; /* White background for the content area */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Soft, noticeable shadow */
+    position: relative; /* Needed for potential pseudo-elements or animations */
+    overflow: hidden; /* Hide overflow from border-radius */
+}
+
+/* Subtle background animation (Optional but can add flair) */
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top left, rgba(0, 123, 255, 0.1), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(40, 167, 69, 0.1), transparent 30%);
+    z-index: -1; /* Behind the content */
+    pointer-events: none; /* Don't interfere with clicks */
+}
+
+
+/* Header */
+h1 {
+    text-align: center;
+    color: #333; /* Dark grey */
+    margin-bottom: 25px;
+    font-size: 2em; /* Larger title */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05); /* Subtle text shadow */
+    border-bottom: 3px solid #007bff; /* Accent underline */
+    padding-bottom: 15px;
+    display: inline-block; /* Shrink border to content width */
+    margin-right: auto;
+    margin-left: auto;
+    width: fit-content; /* Center the inline-block element */
+}
+
+h2 {
+    color: #555; /* Slightly lighter heading */
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 2px dashed #ccc; /* Dotted underline */
+    padding-bottom: 5px;
+    text-align: right; /* Adjust for RTL */
+}
+
+h3 {
+    color: #007bff; /* Accent color for sub-headings */
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    text-align: right; /* Adjust for RTL */
+}
+
+/* Introduction Text */
+.intro-text {
+    margin-bottom: 30px;
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.8;
+}
+
+/* Reminder Section */
+.reminder-section {
+    background-color: #e9ecef; /* Light grey background */
+    border-left: 5px solid #ffc107; /* Yellow accent border */
+    padding: 15px 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+}
+
+.reminder-section ul {
+    list-style: none; /* Remove default bullets */
+    padding: 0;
+    margin: 0;
+}
+
+.reminder-section li {
+    margin-bottom: 10px;
+    padding-right: 15px; /* Space for custom bullet */
+    position: relative;
+}
+
+.reminder-section li::before {
+    content: '•'; /* Custom bullet point */
+    color: #ffc107; /* Yellow color */
+    font-weight: bold;
+    position: absolute;
+    right: 0; /* Position custom bullet on the right */
+    top: 0;
+}
+
+
+/* Form Styles */
+#userForm {
+    margin-bottom: 40px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block; /* Label on its own line */
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+    width: 100%;
+    padding: 12px 15px; /* Increased padding */
+    border: 1px solid #ccc;
+    border-radius: 5px; /* Rounded corners for inputs */
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Inner shadow */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+textarea:focus {
+    border-color: #007bff; /* Highlight on focus */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3); /* Soft glow on focus */
+}
+
+textarea {
+    resize: vertical; /* Allow vertical resizing */
+}
+
+button[type="submit"] {
+    display: block; /* Button on its own line */
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #28a745; /* Green submit button */
+    color: white;
+    border: none;
+    border-radius: 25px; /* More rounded button */
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
+    text-transform: uppercase; /* Make button text uppercase */
+    letter-spacing: 1px; /* Add some letter spacing */
+}
+
+button[type="submit"]:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: translateY(-2px); /* Lift effect */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+}
+
+button[type="submit"]:active {
+    transform: translateY(0); /* Press down effect */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Response Message Area */
+.response-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    min-height: 1.5em; /* Reserve some space */
+    text-align: center;
+    font-weight: bold;
+}
+
+.response-message.success {
+    background-color: #d4edda; /* Light green */
+    color: #155724; /* Dark green */
+    border: 1px solid #c3e6cb;
+}
+
+.response-message.error {
+    background-color: #f8d7da; /* Light red */
+    color: #721c24; /* Dark red */
+    border: 1px solid #f5c6cb;
+}
+
+/* Bible Verse */
+.bible-verse {
+    margin: 40px auto;
+    text-align: center;
+    font-size: 1.1em;
+    color: #6a0dad; /* Purple color */
+    font-style: italic;
+    padding: 15px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.bible-verse em {
+    font-style: normal; /* Override italic for the quote itself if preferred */
+}
+
+
+/* Service Sections */
+.service-sections {
+    margin-top: 50px;
+}
+
+.service-sections > h2 { /* Style for the main heading of these sections */
+     border-bottom-color: #007bff; /* Match the main heading underline */
+     margin-bottom: 20px;
+     text-align: center;
+     width: fit-content;
+     margin-left: auto;
+     margin-right: auto;
+}
+
+
+.service-division {
+    background-color: #f9f9f9; /* Very light grey background */
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    transition: box-shadow 0.3s ease;
+}
+
+.service-division:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Lift effect on hover */
+}
+
+.service-division h3 {
+     border-bottom: 1px dotted #007bff; /* Accent color for sub-headings */
+     padding-bottom: 5px;
+     text-align: right;
+     color: #0056b3; /* Slightly darker blue */
+}
+
+
+.service-division ul {
+    list-style: disc; /* Default disc bullets */
+    padding-right: 25px; /* Space for bullets on the right in RTL */
+    margin: 0;
+}
+
+.service-division ul ul { /* Styling for nested lists (like under የማስተዋወቅ ክፍል) */
+    list-style: circle; /* Different bullet style for nested lists */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-right: 20px; /* Indent nested list */
+}
+
+
+.service-division li {
+    margin-bottom: 8px;
+}
+
+/* Contact Info */
+.contact-info {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.contact-info strong {
+    color: #007bff; /* Accent color for the phone number */
+    font-size: 1.3em; /* Make the phone number stand out */
+}
+
+/* Footer */
+.site-footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    text-align: center;
+    font-size: 0.9em;
+    color: #777;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px;
+        padding: 20px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        font-size: 1.8em;
+        padding-bottom: 10px;
+    }
+
+    h2 {
+        font-size: 1.4em;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    h3 {
+        font-size: 1.1em;
+    }
+
+    .intro-text, .bible-verse, .contact-info {
+        font-size: 1em;
+    }
+
+    button[type="submit"] {
+        padding: 12px 15px;
+        font-size: 1em;
+    }
+
+    .reminder-section, .service-division {
+        padding: 15px;
+    }
+
+    .service-division ul {
+        padding-right: 20px; /* Adjust padding for smaller screens */
+    }
+     .service-division ul ul { /* Styling for nested lists */
+        padding-right: 15px; /* Adjust indent for nested lists on smaller screens */
+    }
+}
+
+/* Smaller screens */
+@media (max-width: 480px) {
+    .container {
+         margin: 15px;
+         padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+     button[type="submit"] {
+        font-size: 0.95em;
+        padding: 10px 15px;
+    }
+}

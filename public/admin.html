@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <div class="admin-controls">
+            <input type="password" id="adminPassword" placeholder="Enter admin password">
+            <button onclick="authenticateAdmin()">Login</button>
+        </div>
+        <div id="data-container" style="display: none;">
+            <table id="userData">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Message</th>
+                        <th>Submission Date</th>
+                    </tr>
+                </thead>
+                <tbody id="userDataBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="admin.js"></script>
+</body>
+
+</html>
