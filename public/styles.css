@@ -6,22 +6,21 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Using a common system font that supports Ethiopic */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* Soft gradient background */
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     color: #333;
-    direction: rtl; /* Set text direction for Amharic content */
-    text-align: right; /* Align text to the right */
-    -webkit-font-smoothing: antialiased; /* Smoother fonts on WebKit browsers */
-    -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
+    direction: ltr; /* Changed to LTR */
+    text-align: left; /* Default text alignment to left */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Adjust direction for elements that should be left-aligned if any */
-input, textarea, select, button { /* Added select, ensure font inheritance */
-    direction: rtl;
-    text-align: right;
+input, textarea, select, button {
+    direction: ltr; /* Changed to LTR */
+    text-align: left; /* Default text alignment to left */
     font-family: inherit;
 }
 
@@ -43,8 +42,8 @@ input, textarea, select, button { /* Added select, ensure font inheritance */
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at top left, rgba(0, 123, 255, 0.05), transparent 35%), /* Made it more subtle */
-                radial-gradient(circle at bottom right, rgba(40, 167, 69, 0.05), transparent 35%); /* Made it more subtle */
+    background: radial-gradient(circle at top left, rgba(0, 123, 255, 0.05), transparent 35%),
+                radial-gradient(circle at bottom right, rgba(40, 167, 69, 0.05), transparent 35%);
     z-index: -1;
     pointer-events: none;
 }
@@ -52,29 +51,27 @@ input, textarea, select, button { /* Added select, ensure font inheritance */
 
 /* Header */
 h1 {
-    text-align: center; /* Center text within the h1 block */
+    text-align: center;
     color: #333;
     margin-bottom: 25px;
     font-size: 2em;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
     border-bottom: 3px solid #007bff;
     padding-bottom: 15px;
-
-    /* For centering the h1 block itself when its width is based on content */
-    display: block; /* Or 'table' for older browser compatibility if fit-content is an issue */
-    width: -moz-fit-content; /* Firefox */
-    width: fit-content;      /* Standard */
+    display: block;
+    width: -moz-fit-content;
+    width: fit-content;
     margin-left: auto;
     margin-right: auto;
 }
 
-h2 { /* General h2 style */
+h2 {
     color: #555;
     margin-top: 30px;
     margin-bottom: 15px;
     border-bottom: 2px dashed #ccc;
     padding-bottom: 5px;
-    text-align: right; /* Default alignment */
+    text-align: left; /* Changed to left */
 }
 
 h3 {
@@ -82,7 +79,7 @@ h3 {
     margin-top: 20px;
     margin-bottom: 10px;
     font-size: 1.2em;
-    text-align: right;
+    text-align: left; /* Changed to left */
 }
 
 /* Introduction Text */
@@ -96,7 +93,7 @@ h3 {
 /* Reminder Section */
 .reminder-section {
     background-color: #e9ecef;
-    border-left: 5px solid #ffc107; /* For RTL, border-right might be more conventional, but left is also fine */
+    border-left: 5px solid #ffc107; /* Standard LTR accent on the left */
     padding: 15px 20px;
     margin-bottom: 30px;
     border-radius: 8px;
@@ -110,7 +107,7 @@ h3 {
 
 .reminder-section li {
     margin-bottom: 10px;
-    padding-right: 20px; /* Increased space for custom bullet */
+    padding-left: 20px; /* Space for custom bullet on the left */
     position: relative;
 }
 
@@ -119,9 +116,9 @@ h3 {
     color: #ffc107;
     font-weight: bold;
     position: absolute;
-    right: 0;
+    left: 0; /* Position custom bullet on the left */
     top: 0;
-    line-height: inherit; /* Ensure bullet aligns with text */
+    line-height: inherit;
 }
 
 
@@ -139,46 +136,48 @@ label {
     margin-bottom: 8px;
     font-weight: bold;
     color: #555;
+    text-align: left; /* Explicitly left for labels */
 }
 
 input[type="text"],
 input[type="email"],
 input[type="tel"],
-select, /* Added select here for shared styling */
+select,
 textarea {
     width: 100%;
     padding: 12px 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1em;
-    background-color: #fff; /* Explicit background for select */
+    background-color: #fff;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-/* Specific styling for select dropdown arrow in RTL */
+/* Specific styling for select dropdown arrow in LTR */
 select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%208l5%205%205-5z%22%20fill%3D%22%23555%22/%3E%3C/svg%3E');
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%208l5%205%205-5z%22%20fill%3D%22%23555%22/%3E%3C/svg%3E'); /* Standard down arrow */
     background-repeat: no-repeat;
-    background-position: left 15px center; /* Arrow on the left for RTL */
-    padding-left: 40px; /* Space for the arrow on the left */
+    background-position: right 15px center; /* Arrow on the right for LTR */
+    padding-right: 40px; /* Space for the arrow on the right */
+    padding-left: 15px; /* Reset left padding to default */
 }
-/* Ensure other inputs don't get the select's left padding */
+/* Ensure other inputs don't get the select's right padding from above if it causes issues */
 input[type="text"],
 input[type="email"],
 input[type="tel"],
 textarea {
-    padding: 12px 15px; /* Original padding */
+    padding: 12px 15px; /* Original padding for LTR */
 }
 
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="tel"]:focus,
-select:focus, /* Added select here */
+select:focus,
 textarea:focus {
     border-color: #007bff;
     outline: none;
@@ -190,23 +189,26 @@ textarea {
 }
 
 /* Placeholder styling */
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::placeholder {
     color: #aaa;
-    opacity: 1; /* Firefox */
-    text-align: right; /* Ensure placeholder text is also right-aligned */
+    opacity: 1;
+    text-align: left; /* Ensure placeholder text is left-aligned */
 }
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
+:-ms-input-placeholder {
     color: #aaa;
-    text-align: right;
+    text-align: left;
 }
-::-ms-input-placeholder { /* Microsoft Edge */
+::-ms-input-placeholder {
     color: #aaa;
-    text-align: right;
+    text-align: left;
 }
 
 
 button[type="submit"] {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     width: 100%;
     padding: 15px 20px;
     background-color: #28a745;
@@ -233,8 +235,8 @@ button[type="submit"]:active {
 }
 
 button[type="submit"]:focus {
-    outline: none; /* Remove default outline if any */
-    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5), 0 5px 10px rgba(0, 0, 0, 0.2); /* Greenish focus, keep hover shadow */
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5), 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Response Message Area */
@@ -242,9 +244,18 @@ button[type="submit"]:focus {
     margin-top: 20px;
     padding: 15px;
     border-radius: 8px;
-    min-height: 1.5em;
     text-align: center;
     font-weight: bold;
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: fadeInUp 0.3s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .response-message.success {
@@ -262,7 +273,7 @@ button[type="submit"]:focus {
 /* Bible Verse */
 .bible-verse {
     margin: 40px auto;
-    text-align: center;
+    text-align: center; /* Center is fine for this block */
     font-size: 1.1em;
     color: #6a0dad;
     font-style: italic;
@@ -281,20 +292,17 @@ button[type="submit"]:focus {
     margin-top: 50px;
 }
 
-/* Style for the main heading of these sections */
 .service-sections > h2 {
-     color: #333; /* Match h1 color for consistency */
-     border-bottom: 3px solid #007bff; /* Match the main heading underline style */
-     margin-bottom: 25px; /* Consistent margin */
+     color: #333;
+     border-bottom: 3px solid #007bff;
+     margin-bottom: 25px;
      padding-bottom: 10px;
-
-     /* Centering the block itself */
      display: block;
      width: -moz-fit-content;
      width: fit-content;
      margin-left: auto;
      margin-right: auto;
-     text-align: center; /* Ensure text inside is centered */
+     text-align: center; /* Center this heading */
 }
 
 
@@ -314,22 +322,22 @@ button[type="submit"]:focus {
 .service-division h3 {
      border-bottom: 1px dotted #007bff;
      padding-bottom: 5px;
-     text-align: right;
+     text-align: left; /* Changed to left */
      color: #0056b3;
 }
 
 
 .service-division ul {
     list-style: disc;
-    padding-right: 25px;
-    margin: 10px 0 0 0; /* Added top margin */
+    padding-left: 25px; /* Space for bullets on the left for LTR */
+    margin: 10px 0 0 0;
 }
 
 .service-division ul ul {
     list-style: circle;
     margin-top: 10px;
     margin-bottom: 10px;
-    padding-right: 20px;
+    padding-left: 20px; /* Indent nested list for LTR */
 }
 
 
@@ -340,7 +348,7 @@ button[type="submit"]:focus {
 /* Contact Info */
 .contact-info {
     margin-top: 40px;
-    text-align: center;
+    text-align: center; /* Center is fine */
     font-size: 1.2em;
     color: #555;
 }
@@ -355,29 +363,29 @@ button[type="submit"]:focus {
     margin-top: 50px;
     padding-top: 20px;
     border-top: 1px solid #eee;
-    text-align: center;
+    text-align: center; /* Center is fine */
     font-size: 0.9em;
     color: #777;
 }
 
 
 /* Responsive adjustments */
-@media (max-width: 768px) { /* Tablets and large phones */
+@media (max-width: 768px) {
     .container {
         margin: 20px;
-        padding: 25px; /* Slightly adjusted padding */
+        padding: 25px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
-        font-size: 1.8em; /* Adjusted */
+        font-size: 1.8em;
         padding-bottom: 12px;
     }
     .service-sections > h2 {
-        font-size: 1.6em; /* Adjusted */
+        font-size: 1.6em;
     }
 
-    h2 { /* General h2 */
+    h2 {
         font-size: 1.4em;
         margin-top: 25px;
         margin-bottom: 12px;
@@ -399,9 +407,10 @@ button[type="submit"]:focus {
         padding: 10px 12px;
         font-size: 0.95em;
     }
-    select { /* Re-apply select specific padding for arrow */
-        padding-left: 35px;
-        background-position: left 10px center;
+    select {
+        padding-right: 35px; /* Adjust space for arrow */
+        padding-left: 12px; /* Adjust padding for LTR */
+        background-position: right 10px center; /* Adjust arrow position */
     }
 
 
@@ -415,30 +424,30 @@ button[type="submit"]:focus {
     }
 
     .service-division ul {
-        padding-right: 20px;
+        padding-left: 20px; /* Adjust padding for smaller screens LTR */
     }
      .service-division ul ul {
-        padding-right: 15px;
+        padding-left: 15px; /* Adjust indent for nested lists on smaller screens LTR */
     }
 }
 
-@media (max-width: 480px) { /* Smaller phones */
+@media (max-width: 480px) {
     body {
-        line-height: 1.5; /* Slightly reduce line height for small screens */
+        line-height: 1.5;
     }
     .container {
-         margin: 10px; /* Reduced margin for smaller screens */
-         padding: 20px 15px; /* Adjusted padding */
+         margin: 10px;
+         padding: 20px 15px;
     }
 
     h1 {
-        font-size: 1.6em; /* Adjusted */
+        font-size: 1.6em;
         padding-bottom: 10px;
     }
     .service-sections > h2 {
-        font-size: 1.4em; /* Adjusted */
+        font-size: 1.4em;
     }
-    h2 { /* General h2 */
+    h2 {
         font-size: 1.25em;
     }
     h3 {
@@ -457,21 +466,32 @@ button[type="submit"]:focus {
     input[type="tel"],
     select,
     textarea {
-        padding: 10px 10px; /* Further adjust padding */
+        padding: 10px 10px;
         font-size: 0.9em;
     }
-    select { /* Re-apply select specific padding for arrow */
-        padding-left: 30px; /* Adjust space for arrow */
-        background-position: left 8px center; /* Adjust arrow position */
+    select {
+        padding-right: 30px; /* Adjust space for arrow */
+        padding-left: 10px; /* Adjust padding for LTR */
+        background-position: right 8px center; /* Adjust arrow position */
     }
 
 
     button[type="submit"] {
         font-size: 0.95em;
         padding: 10px 15px;
-        border-radius: 20px; /* Slightly smaller radius */
+        border-radius: 20px;
     }
     .reminder-section li {
-        padding-right: 15px; /* Adjust space for bullet */
+        padding-left: 15px; /* Adjust space for bullet LTR */
     }
+}
+
+/* Error field highlighting */
+.error-field {
+    border-color: #dc3545 !important;
+    background-color: #fff8f8;
+}
+
+.error-field:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
 }
