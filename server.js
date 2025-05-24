@@ -18,7 +18,23 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
-app.use(express.static("public"));
+
+// Static files
+const publicPath = path.join(__dirname, "public");
+console.log(`Serving static files from: ${publicPath}`);
+app.use(express.static(publicPath));
+
+// Explicit root route to serve index.html
+app.get("/", (req, res) => {
+  const indexPath = path.join(publicPath, "index.html");
+  console.log(`Attempting to serve index.html from: ${indexPath}`);
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      console.error("Error sending index.html:", err);
+      res.status(err.status || 500).end();
+    }
+  });
+});
 
 // Routes
 app.use("/api", participantRoutes);
@@ -26,7 +42,14 @@ app.use("/api/admin", adminRoutes);
 
 // Serve the admin page
 app.get("/admin", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "admin.html"));
+  const adminHtmlPath = path.join(publicPath, "admin.html");
+  console.log(`Attempting to serve admin.html from: ${adminHtmlPath}`);
+  res.sendFile(adminHtmlPath, (err) => {
+    if (err) {
+      console.error("Error sending admin.html:", err);
+      res.status(err.status || 500).end();
+    }
+  });
 });
 
 // Error handling middleware
@@ -45,16 +68,16 @@ app.use((err, req, res, next) => {
 });
 
 // Modified server start logic
-const startServer = (port) => {
+const startServer = (portToTry) => {
   try {
     app
-      .listen(port, () => {
-        console.log(`Server running on port ${port}`);
+      .listen(portToTry, () => {
+        console.log(`Server running on port ${portToTry}`);
       })
       .on("error", (err) => {
         if (err.code === "EADDRINUSE") {
-          console.log(`Port ${port} is busy, trying ${port + 1}`);
-          startServer(port + 1);
+          console.log(`Port ${portToTry} is busy, trying ${portToTry + 1}`);
+          startServer(portToTry + 1);
         } else {
           console.error("Server error:", err);
         }
