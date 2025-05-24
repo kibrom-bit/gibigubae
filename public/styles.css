@@ -1,4 +1,10 @@
 /* General Styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Using a common system font that supports Ethiopic */
     line-height: 1.6;
@@ -8,69 +14,75 @@ body {
     color: #333;
     direction: rtl; /* Set text direction for Amharic content */
     text-align: right; /* Align text to the right */
+    -webkit-font-smoothing: antialiased; /* Smoother fonts on WebKit browsers */
+    -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
 }
 
-/* Adjust direction for elements that should be left-aligned if any, or specifically for form inputs if needed */
-input, textarea, button {
-    direction: rtl; /* Ensure form elements also use RTL */
-    text-align: right; /* Align text within form elements */
+/* Adjust direction for elements that should be left-aligned if any */
+input, textarea, select, button { /* Added select, ensure font inheritance */
+    direction: rtl;
+    text-align: right;
+    font-family: inherit;
 }
 
 .container {
-    max-width: 900px; /* Increased max-width to accommodate more content */
-    margin: 40px auto; /* Center the container */
-    padding: 30px 40px; /* More padding inside */
-    background-color: #ffffff; /* White background for the content area */
-    border-radius: 15px; /* Rounded corners */
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Soft, noticeable shadow */
-    position: relative; /* Needed for potential pseudo-elements or animations */
-    overflow: hidden; /* Hide overflow from border-radius */
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px 40px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
 }
 
-/* Subtle background animation (Optional but can add flair) */
+/* Subtle background animation */
 .background-animation {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at top left, rgba(0, 123, 255, 0.1), transparent 30%),
-                radial-gradient(circle at bottom right, rgba(40, 167, 69, 0.1), transparent 30%);
-    z-index: -1; /* Behind the content */
-    pointer-events: none; /* Don't interfere with clicks */
+    background: radial-gradient(circle at top left, rgba(0, 123, 255, 0.05), transparent 35%), /* Made it more subtle */
+                radial-gradient(circle at bottom right, rgba(40, 167, 69, 0.05), transparent 35%); /* Made it more subtle */
+    z-index: -1;
+    pointer-events: none;
 }
 
 
 /* Header */
 h1 {
-    text-align: center;
-    color: #333; /* Dark grey */
+    text-align: center; /* Center text within the h1 block */
+    color: #333;
     margin-bottom: 25px;
-    font-size: 2em; /* Larger title */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05); /* Subtle text shadow */
-    border-bottom: 3px solid #007bff; /* Accent underline */
+    font-size: 2em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+    border-bottom: 3px solid #007bff;
     padding-bottom: 15px;
-    display: inline-block; /* Shrink border to content width */
-    margin-right: auto;
+
+    /* For centering the h1 block itself when its width is based on content */
+    display: block; /* Or 'table' for older browser compatibility if fit-content is an issue */
+    width: -moz-fit-content; /* Firefox */
+    width: fit-content;      /* Standard */
     margin-left: auto;
-    width: fit-content; /* Center the inline-block element */
+    margin-right: auto;
 }
 
-h2 {
-    color: #555; /* Slightly lighter heading */
+h2 { /* General h2 style */
+    color: #555;
     margin-top: 30px;
     margin-bottom: 15px;
-    border-bottom: 2px dashed #ccc; /* Dotted underline */
+    border-bottom: 2px dashed #ccc;
     padding-bottom: 5px;
-    text-align: right; /* Adjust for RTL */
+    text-align: right; /* Default alignment */
 }
 
 h3 {
-    color: #007bff; /* Accent color for sub-headings */
+    color: #007bff;
     margin-top: 20px;
     margin-bottom: 10px;
     font-size: 1.2em;
-    text-align: right; /* Adjust for RTL */
+    text-align: right;
 }
 
 /* Introduction Text */
@@ -83,32 +95,33 @@ h3 {
 
 /* Reminder Section */
 .reminder-section {
-    background-color: #e9ecef; /* Light grey background */
-    border-left: 5px solid #ffc107; /* Yellow accent border */
+    background-color: #e9ecef;
+    border-left: 5px solid #ffc107; /* For RTL, border-right might be more conventional, but left is also fine */
     padding: 15px 20px;
     margin-bottom: 30px;
     border-radius: 8px;
 }
 
 .reminder-section ul {
-    list-style: none; /* Remove default bullets */
+    list-style: none;
     padding: 0;
     margin: 0;
 }
 
 .reminder-section li {
     margin-bottom: 10px;
-    padding-right: 15px; /* Space for custom bullet */
+    padding-right: 20px; /* Increased space for custom bullet */
     position: relative;
 }
 
 .reminder-section li::before {
-    content: '•'; /* Custom bullet point */
-    color: #ffc107; /* Yellow color */
+    content: '•';
+    color: #ffc107;
     font-weight: bold;
     position: absolute;
-    right: 0; /* Position custom bullet on the right */
+    right: 0;
     top: 0;
+    line-height: inherit; /* Ensure bullet aligns with text */
 }
 
 
@@ -122,7 +135,7 @@ h3 {
 }
 
 label {
-    display: block; /* Label on its own line */
+    display: block;
     margin-bottom: 8px;
     font-weight: bold;
     color: #555;
@@ -131,54 +144,97 @@ label {
 input[type="text"],
 input[type="email"],
 input[type="tel"],
+select, /* Added select here for shared styling */
 textarea {
     width: 100%;
-    padding: 12px 15px; /* Increased padding */
+    padding: 12px 15px;
     border: 1px solid #ccc;
-    border-radius: 5px; /* Rounded corners for inputs */
+    border-radius: 5px;
     font-size: 1em;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Inner shadow */
+    background-color: #fff; /* Explicit background for select */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
 }
+
+/* Specific styling for select dropdown arrow in RTL */
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%208l5%205%205-5z%22%20fill%3D%22%23555%22/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: left 15px center; /* Arrow on the left for RTL */
+    padding-left: 40px; /* Space for the arrow on the left */
+}
+/* Ensure other inputs don't get the select's left padding */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+    padding: 12px 15px; /* Original padding */
+}
+
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="tel"]:focus,
+select:focus, /* Added select here */
 textarea:focus {
-    border-color: #007bff; /* Highlight on focus */
-    outline: none; /* Remove default outline */
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3); /* Soft glow on focus */
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
 }
 
 textarea {
-    resize: vertical; /* Allow vertical resizing */
+    resize: vertical;
 }
 
+/* Placeholder styling */
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #aaa;
+    opacity: 1; /* Firefox */
+    text-align: right; /* Ensure placeholder text is also right-aligned */
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #aaa;
+    text-align: right;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #aaa;
+    text-align: right;
+}
+
+
 button[type="submit"] {
-    display: block; /* Button on its own line */
+    display: block;
     width: 100%;
     padding: 15px 20px;
-    background-color: #28a745; /* Green submit button */
+    background-color: #28a745;
     color: white;
     border: none;
-    border-radius: 25px; /* More rounded button */
+    border-radius: 25px;
     font-size: 1.1em;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
-    text-transform: uppercase; /* Make button text uppercase */
-    letter-spacing: 1px; /* Add some letter spacing */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 button[type="submit"]:hover {
-    background-color: #218838; /* Darker green on hover */
-    transform: translateY(-2px); /* Lift effect */
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 button[type="submit"]:active {
-    transform: translateY(0); /* Press down effect */
+    transform: translateY(0);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+button[type="submit"]:focus {
+    outline: none; /* Remove default outline if any */
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5), 0 5px 10px rgba(0, 0, 0, 0.2); /* Greenish focus, keep hover shadow */
 }
 
 /* Response Message Area */
@@ -186,20 +242,20 @@ button[type="submit"]:active {
     margin-top: 20px;
     padding: 15px;
     border-radius: 8px;
-    min-height: 1.5em; /* Reserve some space */
+    min-height: 1.5em;
     text-align: center;
     font-weight: bold;
 }
 
 .response-message.success {
-    background-color: #d4edda; /* Light green */
-    color: #155724; /* Dark green */
+    background-color: #d4edda;
+    color: #155724;
     border: 1px solid #c3e6cb;
 }
 
 .response-message.error {
-    background-color: #f8d7da; /* Light red */
-    color: #721c24; /* Dark red */
+    background-color: #f8d7da;
+    color: #721c24;
     border: 1px solid #f5c6cb;
 }
 
@@ -208,7 +264,7 @@ button[type="submit"]:active {
     margin: 40px auto;
     text-align: center;
     font-size: 1.1em;
-    color: #6a0dad; /* Purple color */
+    color: #6a0dad;
     font-style: italic;
     padding: 15px;
     border-top: 1px solid #eee;
@@ -216,7 +272,7 @@ button[type="submit"]:active {
 }
 
 .bible-verse em {
-    font-style: normal; /* Override italic for the quote itself if preferred */
+    font-style: normal;
 }
 
 
@@ -225,18 +281,25 @@ button[type="submit"]:active {
     margin-top: 50px;
 }
 
-.service-sections > h2 { /* Style for the main heading of these sections */
-     border-bottom-color: #007bff; /* Match the main heading underline */
-     margin-bottom: 20px;
-     text-align: center;
+/* Style for the main heading of these sections */
+.service-sections > h2 {
+     color: #333; /* Match h1 color for consistency */
+     border-bottom: 3px solid #007bff; /* Match the main heading underline style */
+     margin-bottom: 25px; /* Consistent margin */
+     padding-bottom: 10px;
+
+     /* Centering the block itself */
+     display: block;
+     width: -moz-fit-content;
      width: fit-content;
      margin-left: auto;
      margin-right: auto;
+     text-align: center; /* Ensure text inside is centered */
 }
 
 
 .service-division {
-    background-color: #f9f9f9; /* Very light grey background */
+    background-color: #f9f9f9;
     border: 1px solid #eee;
     border-radius: 8px;
     padding: 20px;
@@ -245,28 +308,28 @@ button[type="submit"]:active {
 }
 
 .service-division:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Lift effect on hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 
 .service-division h3 {
-     border-bottom: 1px dotted #007bff; /* Accent color for sub-headings */
+     border-bottom: 1px dotted #007bff;
      padding-bottom: 5px;
      text-align: right;
-     color: #0056b3; /* Slightly darker blue */
+     color: #0056b3;
 }
 
 
 .service-division ul {
-    list-style: disc; /* Default disc bullets */
-    padding-right: 25px; /* Space for bullets on the right in RTL */
-    margin: 0;
+    list-style: disc;
+    padding-right: 25px;
+    margin: 10px 0 0 0; /* Added top margin */
 }
 
-.service-division ul ul { /* Styling for nested lists (like under የማስተዋወቅ ክፍል) */
-    list-style: circle; /* Different bullet style for nested lists */
+.service-division ul ul {
+    list-style: circle;
     margin-top: 10px;
     margin-bottom: 10px;
-    padding-right: 20px; /* Indent nested list */
+    padding-right: 20px;
 }
 
 
@@ -283,8 +346,8 @@ button[type="submit"]:active {
 }
 
 .contact-info strong {
-    color: #007bff; /* Accent color for the phone number */
-    font-size: 1.3em; /* Make the phone number stand out */
+    color: #007bff;
+    font-size: 1.3em;
 }
 
 /* Footer */
@@ -299,22 +362,25 @@ button[type="submit"]:active {
 
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 768px) { /* Tablets and large phones */
     .container {
         margin: 20px;
-        padding: 20px;
+        padding: 25px; /* Slightly adjusted padding */
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
-        font-size: 1.8em;
-        padding-bottom: 10px;
+        font-size: 1.8em; /* Adjusted */
+        padding-bottom: 12px;
+    }
+    .service-sections > h2 {
+        font-size: 1.6em; /* Adjusted */
     }
 
-    h2 {
+    h2 { /* General h2 */
         font-size: 1.4em;
-        margin-top: 20px;
-        margin-bottom: 10px;
+        margin-top: 25px;
+        margin-bottom: 12px;
     }
 
     h3 {
@@ -324,6 +390,20 @@ button[type="submit"]:active {
     .intro-text, .bible-verse, .contact-info {
         font-size: 1em;
     }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+        padding: 10px 12px;
+        font-size: 0.95em;
+    }
+    select { /* Re-apply select specific padding for arrow */
+        padding-left: 35px;
+        background-position: left 10px center;
+    }
+
 
     button[type="submit"] {
         padding: 12px 15px;
@@ -335,25 +415,63 @@ button[type="submit"]:active {
     }
 
     .service-division ul {
-        padding-right: 20px; /* Adjust padding for smaller screens */
+        padding-right: 20px;
     }
-     .service-division ul ul { /* Styling for nested lists */
-        padding-right: 15px; /* Adjust indent for nested lists on smaller screens */
+     .service-division ul ul {
+        padding-right: 15px;
     }
 }
 
-/* Smaller screens */
-@media (max-width: 480px) {
+@media (max-width: 480px) { /* Smaller phones */
+    body {
+        line-height: 1.5; /* Slightly reduce line height for small screens */
+    }
     .container {
-         margin: 15px;
-         padding: 15px;
+         margin: 10px; /* Reduced margin for smaller screens */
+         padding: 20px 15px; /* Adjusted padding */
     }
 
     h1 {
-        font-size: 1.5em;
+        font-size: 1.6em; /* Adjusted */
+        padding-bottom: 10px;
     }
-     button[type="submit"] {
+    .service-sections > h2 {
+        font-size: 1.4em; /* Adjusted */
+    }
+    h2 { /* General h2 */
+        font-size: 1.25em;
+    }
+    h3 {
+        font-size: 1.05em;
+    }
+
+    .intro-text {
+        font-size: 0.95em;
+    }
+    .bible-verse, .contact-info {
+        font-size: 0.9em;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+        padding: 10px 10px; /* Further adjust padding */
+        font-size: 0.9em;
+    }
+    select { /* Re-apply select specific padding for arrow */
+        padding-left: 30px; /* Adjust space for arrow */
+        background-position: left 8px center; /* Adjust arrow position */
+    }
+
+
+    button[type="submit"] {
         font-size: 0.95em;
         padding: 10px 15px;
+        border-radius: 20px; /* Slightly smaller radius */
+    }
+    .reminder-section li {
+        padding-right: 15px; /* Adjust space for bullet */
     }
 }

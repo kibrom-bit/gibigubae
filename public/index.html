@@ -30,21 +30,55 @@
 
         <form id="userForm">
             <div class="form-group">
-                <label for="name">ሙሉ ስም:</label>
-                <input type="text" id="name" name="name" required>
+                <label for="first_name">ስም:</label>
+                <input type="text" id="first_name" name="first_name" required>
             </div>
             <div class="form-group">
-                <label for="email">ኢሜል:</label>
-                <input type="email" id="email" name="email" required>
+                <label for="father_name">የአባት ስም:</label>
+                <input type="text" id="father_name" name="father_name" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">ጾታ:</label>
+                <select id="gender" name="gender" required>
+                    <option value="">-- ጾታ ይምረጡ --</option>
+                    <option value="male">ወንድ</option>
+                    <option value="female">ሴት</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="department">ዲፓርትመንት:</label>
+                <input type="text" id="department" name="department" required>
+            </div>
+            <div class="form-group">
+                <label for="dorm_block">ዶርም ብሎክ:</label>
+                <input type="text" id="dorm_block" name="dorm_block" required>
+            </div>
+            <div class="form-group">
+                <label for="dorm_room_number">ዶርም ክፍል ቁጥር:</label>
+                <input type="text" id="dorm_room_number" name="dorm_room_number" required>
+            </div>
+            <div class="form-group">
+                <label for="job">የሥራ መስክ:</label>
+                <select id="job" name="job" required>
+                    <option value="">-- የሥራ መስክ ይምረጡ --</option>
+                    <option value="teacher">መምህር</option>
+                    <option value="doctor">ሐኪም</option>
+                    <option value="tailor">ልብስ ሰፊ</option>
+                    <option value="other">ሌላ</option> <!-- Added 'Other' as a common option -->
+                </select>
             </div>
             <div class="form-group">
                 <label for="phone">ስልክ ቁጥር:</label>
-                <input type="tel" id="phone" name="phone" required>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="ምሳሌ: 0912345678" required>
             </div>
-            <div class="form-group">
-                <label for="message">መልዕክት / አስተያየት:</label>
-                <textarea id="message" name="message" rows="4" required></textarea>
-            </div>
+            <!-- <div class="form-group">
+                <label for="email">ኢሜል:</label>
+                <input type="email" id="email" name="email" placeholder="example@example.com" required>
+            </div> -->
+            <!-- <div class="form-group">
+                <label for="message">መልዕክት / አስተያየት (አስፈላጊ ከሆነ):</label>
+                <textarea id="message" name="message" rows="4"></textarea> <!-- Made message optional -->
+            </div> -->
             <button type="submit">ያስገቡ</button>
         </form>
 
