@@ -1,37 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Event Participants</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Additional admin-specific styles */
+      .admin-container {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .admin-controls {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .admin-controls input[type="password"] {
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        flex-grow: 1;
+      }
+      .admin-controls button {
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+      .admin-controls button:hover {
+        background-color: #0056b3;
+      }
+      #data-container {
+        overflow-x: auto; /* For responsive tables */
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #dee2e6;
+        padding: 12px;
+        text-align: left;
+        font-size: 0.9em;
+      }
+      th {
+        background-color: #e9ecef;
+        font-weight: bold;
+        color: #495057;
+      }
+      tr:nth-child(even) {
+        background-color: #f8f9fa;
+      }
+      tr:hover {
+        background-color: #e2e6ea;
+      }
+      .auth-message {
+        color: red;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="admin-container">
+      <h1>Event Participants Data</h1>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
+      <div class="admin-controls">
+        <input
+          type="password"
+          id="adminPassword"
+          placeholder="Enter Admin Password"
+        />
+        <button onclick="authenticateAdmin()">Login</button>
+      </div>
+      <div id="authMessage" class="auth-message"></div>
 
-<body>
-    <div class="container">
-        <h1>Admin Dashboard</h1>
-        <div class="admin-controls">
-            <input type="password" id="adminPassword" placeholder="Enter admin password">
-            <button onclick="authenticateAdmin()">Login</button>
-        </div>
-        <div id="data-container" style="display: none;">
-            <table id="userData">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Message</th>
-                        <th>Submission Date</th>
-                    </tr>
-                </thead>
-                <tbody id="userDataBody">
-                </tbody>
-            </table>
-        </div>
+      <div id="data-container" style="display: none">
+        <button onclick="fetchUserData()" style="margin-bottom: 15px">
+          Refresh Data
+        </button>
+        <table id="userData">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Father's Name</th>
+              <th>Gender</th>
+              <th>Department</th>
+              <th>Dorm Block</th>
+              <th>Dorm Room No.</th>
+              <th>Job Field</th>
+              <th>Phone Number</th>
+              <th>Registered At</th>
+            </tr>
+          </thead>
+          <tbody id="userDataBody">
+            <!-- Data will be inserted here by JavaScript -->
+          </tbody>
+        </table>
+        <p
+          id="loadingMessage"
+          style="display: none; text-align: center; margin-top: 20px"
+        >
+          Loading data...
+        </p>
+        <p
+          id="noDataMessage"
+          style="display: none; text-align: center; margin-top: 20px"
+        >
+          No participant data found.
+        </p>
+      </div>
     </div>
-    <script src="admin.js"></script>
-</body>
 
+    <script src="admin.js"></script>
+  </body>
 </html>
