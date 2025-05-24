@@ -15,6 +15,19 @@ document.getElementById("userForm").addEventListener("submit", async (e) => {
   const responseMessage = document.getElementById("response-message");
   const submitButton = document.querySelector('button[type="submit"]');
 
+  // Determine the backend URL
+  let backendBaseUrl;
+  if (
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+  ) {
+    const backendPort = 3000; // Adjust if your local server consistently uses a different port
+    backendBaseUrl = `${window.location.protocol}//${window.location.hostname}:${backendPort}`;
+  } else {
+    // For deployed environments (like Vercel), API calls are relative to the current host
+    backendBaseUrl = "";
+  }
+
   // Basic client-side validation
   for (const [key, value] of Object.entries(formData)) {
     if (!value) {
@@ -44,11 +57,6 @@ document.getElementById("userForm").addEventListener("submit", async (e) => {
     // Disable the submit button while processing
     submitButton.disabled = true;
     submitButton.textContent = "እባክዎ ይጠብቁ...";
-
-    // Determine the backend URL. If running locally, it's likely http://localhost:3000
-    // For production, you might use a relative path or an environment variable.
-    const backendPort = 3000; // Adjust if your server consistently uses a different port
-    const backendBaseUrl = `${window.location.protocol}//${window.location.hostname}:${backendPort}`;
 
     const response = await fetch(`${backendBaseUrl}/api/submit`, {
       method: "POST",

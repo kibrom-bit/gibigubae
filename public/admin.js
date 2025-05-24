@@ -7,8 +7,17 @@ const loadingMessage = document.getElementById("loadingMessage");
 const noDataMessage = document.getElementById("noDataMessage");
 
 // Determine the backend URL
-const backendPort = 3000; // Adjust if your server consistently uses a different port
-const backendBaseUrl = `${window.location.protocol}//${window.location.hostname}:${backendPort}`;
+let backendBaseUrl;
+if (
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1"
+) {
+  const backendPort = 3000; // Adjust if your local server consistently uses a different port
+  backendBaseUrl = `${window.location.protocol}//${window.location.hostname}:${backendPort}`;
+} else {
+  // For deployed environments (like Vercel), API calls are relative to the current host
+  backendBaseUrl = "";
+}
 
 async function authenticateAdmin() {
   const password = adminPasswordInput.value;
@@ -39,11 +48,9 @@ async function authenticateAdmin() {
         authMessage.textContent = result.message || "Invalid password.";
       }
     } else {
-      const errorData = await response
-        .json()
-        .catch(() => ({
-          message: "Authentication request failed. Status: " + response.status,
-        }));
+      const errorData = await response.json().catch(() => ({
+        message: "Authentication request failed. Status: " + response.status,
+      }));
       authMessage.textContent = errorData.message || "Authentication failed.";
     }
   } catch (error) {
@@ -62,18 +69,17 @@ async function fetchUserData() {
     const response = await fetch(`${backendBaseUrl}/api/admin/data`);
 
     if (!response.ok) {
-      const errorData = await response
-        .json()
-        .catch(() => ({
-          message: "Failed to fetch data. Status: " + response.status,
-        }));
+      const errorData = await response.json().catch(() => ({
+        message: "Failed to fetch data. Status: " + response.status,
+      }));
       throw new Error(errorData.message || "Failed to fetch participant data.");
     }
 
     const data = await response.json();
     loadingMessage.style.display = "none";
 
-    if (data && data.length > 0) {
+    // Ensure data is an array before trying to use array properties/methods
+    if (Array.isArray(data) && data.length > 0) {
       data.forEach((user) => {
         const row = document.createElement("tr");
         row.innerHTML = `
@@ -91,6 +97,11 @@ async function fetchUserData() {
         userDataBody.appendChild(row);
       });
     } else {
+      // Handle cases where data is not an array or is empty
+      console.log(
+        "Received data for admin page is not a non-empty array:",
+        data
+      );
       noDataMessage.style.display = "block";
     }
   } catch (error) {
