@@ -1,8 +1,13 @@
-require("dotenv").config();
-const express = require("express");
-const { Pool } = require("pg");
-const cors = require("cors");
-const path = require("path");
+import "dotenv/config";
+import express from "express";
+import pg from "pg";
+import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const { Pool } = pg;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,38 +17,62 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
+// Parse the DATABASE_URL
+const dbUrl = new URL(process.env.DATABASE_URL);
+
 // PostgreSQL configuration using Supabase
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  user: dbUrl.username,
+  password: dbUrl.password,
+  host: dbUrl.hostname,
+  port: dbUrl.port,
+  database: dbUrl.pathname.split("/")[1],
   ssl: {
     rejectUnauthorized: false, // Required for Supabase connections
   },
 });
 
-// Create table if it doesn't exist
+// Test database connection
 pool
-  .query(
-    `
-    CREATE TABLE IF NOT EXISTS user_submissions (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
-        email VARCHAR(100) NOT NULL,
-        phone VARCHAR(20) NOT NULL,
-        message TEXT NOT NULL,
-        submission_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    );
-`
-  )
-  .catch((err) => console.error("Error creating table:", err));
+  .connect()
+  .then(() => console.log("Connected to database successfully"))
+  .catch((err) => console.error("Database connection error:", err));
 
 // Routes
 app.post("/api/submit", async (req, res) => {
   try {
-    const { name, email, phone, message } = req.body;
+    const {
+      first_name,
+      father_name,
+      gender,
+      department,
+      dorm_block,
+      dorm_room_number,
+      job_field,
+      phone_number,
+    } = req.body;
 
     const result = await pool.query(
-      "INSERT INTO user_submissions (name, email, phone, message) VALUES ($1, $2, $3, $4) RETURNING *",
-      [name, email, phone, message]
+      `INSERT INTO event_participants (
+        first_name,
+        father_name,
+        gender,
+        department,
+        dorm_block,
+        dorm_room_number,
+        job_field,
+        phone_number
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+      [
+        first_name,
+        father_name,
+        gender,
+        department,
+        dorm_block,
+        dorm_room_number,
+        job_field,
+        phone_number,
+      ]
     );
 
     res.json({ success: true, data: result.rows[0] });
@@ -66,7 +95,7 @@ app.post("/api/admin/auth", (req, res) => {
 app.get("/api/admin/data", async (req, res) => {
   try {
     const result = await pool.query(
-      "SELECT * FROM user_submissions ORDER BY submission_date DESC"
+      "SELECT * FROM event_participants ORDER BY created_at DESC"
     );
     res.json(result.rows);
   } catch (error) {
@@ -86,6 +115,24 @@ app.use((err, req, res, next) => {
   res.status(500).json({ success: false, message: "Something went wrong!" });
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+// Modified server start logic
+const startServer = (port) => {
+  try {
+    app
+      .listen(port, () => {
+        console.log(`Server running on port ${port}`);
+      })
+      .on("error", (err) => {
+        if (err.code === "EADDRINUSE") {
+          console.log(`Port ${port} is busy, trying ${port + 1}`);
+          startServer(port + 1);
+        } else {
+          console.error("Server error:", err);
+        }
+      });
+  } catch (err) {
+    console.error("Failed to start server:", err);
+  }
+};
+
+startServer(port);
